@@ -1,0 +1,5 @@
+name: BukkitUtilsMinigame
+main: mc.xesau.bukkitutils.minigame.BukkitUtilsMinigame
+version: 0.22
+
+depend: [BukkitUtils]
