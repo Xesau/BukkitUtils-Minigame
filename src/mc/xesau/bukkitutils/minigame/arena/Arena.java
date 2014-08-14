@@ -22,8 +22,8 @@ public interface Arena {
 	public void setMaxPlayers( @Nonnull int max );
 	public void setMinPlayers( @Nonnull int min );
 	
-	public void start( @Nonnull ArenaStartReason reason );
-	public void stop( @Nonnull ArenaStopReason reason );
+	public boolean start( @Nonnull ArenaStartReason reason );
+	public boolean stop( @Nonnull ArenaStopReason reason );
 	
 	public boolean joinPlayer( @Nonnull Player p, @Nonnull ArenaJoinReason reason );
 	public boolean leavePlayer( @Nonnull Player p, @Nonnull ArenaLeaveReason reason );

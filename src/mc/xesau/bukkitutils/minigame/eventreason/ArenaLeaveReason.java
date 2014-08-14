@@ -4,6 +4,7 @@ public enum ArenaLeaveReason {
 
 	COMMAND,
 	SIGN,
+	ENDGAME,
 	DISCONNECT,
 	SHUTDOWN,
 	DISABLE

@@ -6,6 +6,7 @@ import java.util.UUID;
 import mc.xesau.bukkitutils.UUIDManager;
 import mc.xesau.bukkitutils.minigame.BukkitUtilsMinigame;
 import mc.xesau.bukkitutils.minigame.event.ArenaJoinEvent;
+import mc.xesau.bukkitutils.minigame.event.ArenaStopEvent;
 import mc.xesau.bukkitutils.minigame.eventreason.ArenaJoinReason;
 import mc.xesau.bukkitutils.minigame.eventreason.ArenaLeaveReason;
 import mc.xesau.bukkitutils.minigame.eventreason.ArenaStartReason;
@@ -71,18 +72,42 @@ public class GameArena implements Arena {
 	}
 
 	@Override
-	public void start(ArenaStartReason reason)
+	public boolean start(ArenaStartReason reason)
 	{
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
-	public void stop(ArenaStopReason reason)
+	public boolean stop(ArenaStopReason reason)
 	{
-		// TODO Auto-generated method stub
+		if( getStatus() == ArenaStatus.INGAME )
+		{
+			ArenaStopEvent stopEvent = new ArenaStopEvent( this, reason );
+			
+			Bukkit.getServer().getPluginManager().callEvent( stopEvent );
+			
+			if( !stopEvent.isCancelled() )
+			{
+				status = ArenaStatus.RESETTING;
+				
+				reward();
+				
+				for( Player p : ingamePlayers )
+				{
+					leavePlayer( p, ArenaLeaveReason.ENDGAME );
+				}
+				
+				status = ArenaStatus.LOBBY;
+				
+				return true;
+			}
+		}
 		
+		return false;
 	}
+	
+	public void reward() {}
 
 	@Override
 	public boolean joinPlayer(Player p, ArenaJoinReason reason)
@@ -95,7 +120,7 @@ public class GameArena implements Arena {
 			
 			if( !joinEvent.isCancelled() )
 			{
-				// add player
+				inventories.put( p.getUniqueId(), new InventoryData( p ) );
 				return true;
 			}
 		}

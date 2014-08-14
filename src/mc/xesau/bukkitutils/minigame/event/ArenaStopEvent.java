@@ -4,17 +4,20 @@ import mc.xesau.bukkitutils.minigame.arena.Arena;
 import mc.xesau.bukkitutils.minigame.eventreason.ArenaStopReason;
 
 import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 
-public class ArenaStopEvent implements Cancellable {
+public class ArenaStopEvent extends Event implements Cancellable, ArenaEvent {
 
+	private HandlerList handlers = new HandlerList();
+	private Arena arena;
+	private ArenaStopReason reason;
+	
 	public ArenaStopEvent( Arena arena, ArenaStopReason reason )
 	{
 		this.arena = arena;
 		this.reason = reason;
 	}
-	
-	private Arena arena;
-	private ArenaStopReason reason;
 	
 	public Arena getArena()
 	{
@@ -36,6 +39,11 @@ public class ArenaStopEvent implements Cancellable {
 	@Override
 	public void setCancelled( boolean cancel ) {
 		this.cancel = cancel;
+	}
+
+	@Override
+	public HandlerList getHandlers() {
+		return handlers;
 	}
 	
 }

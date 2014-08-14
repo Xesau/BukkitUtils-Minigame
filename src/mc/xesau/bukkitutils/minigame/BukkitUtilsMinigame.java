@@ -1,5 +1,6 @@
 package mc.xesau.bukkitutils.minigame;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -8,13 +9,16 @@ import javax.annotation.Nonnull;
 import mc.xesau.bukkitutils.BukkitUtils;
 import mc.xesau.bukkitutils.minigame.arena.Arena;
 import mc.xesau.bukkitutils.minigame.eventreason.ArenaLeaveReason;
+import mc.xesau.bukkitutils.minigame.sign.ArenaSign;
 
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BukkitUtilsMinigame extends JavaPlugin {
 
 	public static HashMap< UUID, Arena > playerArenas = new HashMap< UUID, Arena >();
+	public static ArrayList< ArenaSign > signs = new ArrayList< ArenaSign >();
 	
 	public void onEnable()
 	{
@@ -49,6 +53,36 @@ public class BukkitUtilsMinigame extends JavaPlugin {
 	public static void leaveArena( @Nonnull Player p, @Nonnull ArenaLeaveReason reason ) {
 		if( isInArena( p ) )
 			getPlayerArena( p ).leavePlayer( p, reason );
+	}
+	
+	public static void updateSigns()
+	{
+		for( ArenaSign s : signs )
+		{
+			s.update();
+		}
+	}
+	
+	public void updateSigns( Arena a )
+	{
+		for( ArenaSign s : signs )
+		{
+			if( s.getArena().equals( a ) ) 
+			{
+				s.update();
+			}
+		}
+	}
+	
+	public void updateSigns( Plugin p )
+	{
+		for( ArenaSign s : signs )
+		{
+			if( s.getPlugin().equals( p ) )
+			{
+				s.update();
+			}
+		}
 	}
 	
 }
