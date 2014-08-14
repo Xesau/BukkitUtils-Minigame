@@ -1,5 +1,7 @@
 package mc.xesau.bukkitutils.minigame.arena;
 
+import java.util.ArrayList;
+
 import javax.annotation.Nonnull;
 
 import mc.xesau.bukkitutils.minigame.eventreason.ArenaJoinReason;
@@ -23,9 +25,11 @@ public interface Arena {
 	public void start( @Nonnull ArenaStartReason reason );
 	public void stop( @Nonnull ArenaStopReason reason );
 	
-	public void joinPlayer( @Nonnull Player p, @Nonnull ArenaJoinReason reason );
-	public void leavePlayer( @Nonnull Player p, @Nonnull ArenaLeaveReason reason );
+	public boolean joinPlayer( @Nonnull Player p, @Nonnull ArenaJoinReason reason );
+	public boolean leavePlayer( @Nonnull Player p, @Nonnull ArenaLeaveReason reason );
 	
 	public ArenaStatus getStatus();
+	
+	public ArrayList< Player > getIngamePlayers();
 	
 }
