@@ -7,10 +7,12 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 
 import mc.xesau.bukkitutils.BukkitUtils;
+import mc.xesau.bukkitutils.LocationUtils;
 import mc.xesau.bukkitutils.minigame.arena.Arena;
 import mc.xesau.bukkitutils.minigame.eventreason.ArenaLeaveReason;
 import mc.xesau.bukkitutils.minigame.sign.ArenaSign;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -83,6 +85,17 @@ public class BukkitUtilsMinigame extends JavaPlugin {
 				s.update();
 			}
 		}
+	}
+
+	public static boolean hasSign( Location location )
+	{
+		for( ArenaSign s : signs )
+		{
+			if( LocationUtils.isSame( s.getLocation(), location ) )
+				return true;
+		}
+		
+		return false;
 	}
 	
 }
