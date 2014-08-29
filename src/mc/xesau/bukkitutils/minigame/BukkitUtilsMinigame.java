@@ -97,5 +97,12 @@ public class BukkitUtilsMinigame extends JavaPlugin {
 		
 		return false;
 	}
+
+	public static ArenaSign getSign( Location location ) {
+		for( ArenaSign s : signs )
+			if( LocationUtils.isSame( s.getLocation(), location ) )
+				return s;
+		return null;
+	}
 	
 }

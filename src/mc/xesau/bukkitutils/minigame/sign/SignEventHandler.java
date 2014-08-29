@@ -18,10 +18,8 @@ public class SignEventHandler implements Listener {
 			if( e.getClickedBlock().getType() == Material.SIGN_POST ||
 				e.getClickedBlock().getType() == Material.WALL_SIGN )
 			{
-				if( BukkitUtilsMinigame.hasSign( e.getClickedBlock().getLocation() ) )
-				{
-					
-				}
+				ArenaSign s = BukkitUtilsMinigame.getSign( e.getClickedBlock().getLocation() );
+				if( s != null ) s.onClick( e.getPlayer() );
 			}
 		}
 	}
